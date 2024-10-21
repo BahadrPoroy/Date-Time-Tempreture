@@ -7,6 +7,8 @@
 // I/O pin and device setups
 
 #define DHT11PIN 2
+#define btSet 3
+#define btOk 4
 virtuabotixRTC myRTC(6, 7, 8);
 dht11 DHT;
 
@@ -14,7 +16,7 @@ dht11 DHT;
 int maxAddr = 288;  //maxAddr Calculation: 24 hours x 60 minutes / recording frequency (In this example my frequency is 5 minutes)
 int p, addr = 0;
 int sec = 50, mnt = 28, clk = 15, dayofweek = 6, dd = 24, mm = 6, yyyy = 2023;  //Date and time variables
-int nowMillis = 0, lastMillis = 0;                                              //time control variables
+int nowMillis = 0, lastMillis = 0,nowMillisAyar = 0, lastMillisAyar = 0;        //time control variables
 int pageCount = 2;                                                              //number of pages variable
 float ort_sck;
 
@@ -63,6 +65,16 @@ void pageChange() {
       break;
   }
 }
+void ayar(){
+  nowMillisAyar = millis();
+  if((nowMillisAyar - lastMillisAyar >= 3000) && (!digitalRead(btSet) || !digitalRead(btOk))){
+    loop();
+  }
+  u8g.firstPage();
+      do {
+        saatAyar();
+      } while (u8g.nextPage());
+}
 
 void loop() {
   myRTC.updateTime();
@@ -82,5 +94,9 @@ void loop() {
   if (nowMillis - lastMillis >= 2500) {
     p = (p + 1) % pageCount;
     pageChange();
+  }
+  if(digitalRead(btSet)){
+    lastMillisAyar = millis();
+    ayar();
   }
 }
