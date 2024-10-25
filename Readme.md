@@ -19,11 +19,11 @@ Temperature & Humidity screen:
 
 Time/Date changing screens:
 
-![HourSet](Images\20241025_230954.jpg)
-![MinuteSet](Images\20241025_230958.jpg)
-![DayofWeekSet](Images\20241025_231001.jpg)
-![DayofMonthSet](Images\20241025_231007.jpg)
-![MonthSet](Images\20241025_231012.jpg)
-![YearSet](Images\20241025_231015.jpg)
+![HourSet](Images/20241025_230954.jpg)
+![MinuteSet](Images/20241025_230958.jpg)
+![DayofWeekSet](Images/20241025_231001.jpg)
+![DayofMonthSet](Images/20241025_231007.jpg)
+![MonthSet](Images/20241025_231012.jpg)
+![YearSet](Images/20241025_231015.jpg)
 
 The box was custom designed for the hardware of the project (the keypad was made by me, so its dimensions aren't fixed therefore places of hole may vary.) and printed with a 3D printer.
