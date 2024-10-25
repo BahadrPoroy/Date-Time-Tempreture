@@ -169,7 +169,7 @@ void yilAyar() {
   u8g.drawFrame(2, 1, 126, 63);
   u8g.setPrintPos(10, 40);
 
-  u8g.print("  /  ");
+  u8g.print("  /  /");
 
   //Month printer
 
