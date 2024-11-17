@@ -25,6 +25,6 @@ const unsigned char u8g_logo_bits[] U8G_PROGMEM = {
 };
 
 void sayfaMarka() {
-u8g.drawFrame(2,1,126,63);
+u8g.drawFrame(0,0,128,64);
 u8g.drawXBMP(19, 22, u8g_logo_width, u8g_logo_height, u8g_logo_bits);
 }

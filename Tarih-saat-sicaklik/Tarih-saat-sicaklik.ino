@@ -20,9 +20,12 @@ int nowMillis = 0, lastMillis = 0, nowMillisAyar = 0, lastMillisAyar = 0;       
 int pageCount = 2;                                                              //number of pages variable
 float ort_sck;
 
+int spacing;
+char *day[] = { "Pazartesi", "Sali", "Carsamba", "Persembe", "Cuma", "Cumartesi", "Pazar" };
+
 int is_changed = 0;  //0: hours, 1: minutes, 2: dayofweek, 3: dayofmonth, 4: month, 5: year
 
-U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_NONE | U8G_I2C_OPT_DEV_0);
+U8GLIB_SH1106_128X64 u8g(U8G_I2C_OPT_NONE | U8G_I2C_OPT_DEV_0);
 
 //Page's settings
 
@@ -34,7 +37,7 @@ void setup() {
   Serial.begin(9600);
   int chk = DHT.read(DHT11PIN);
   u8g.begin();
-  u8g.setFont(u8g_font_unifont);
+  u8g.setFont(u8g_font_fur14);
   p = 0;
   for (int i = 0; i < maxAddr; i++) {
     ort_sck = (float)(ort_sck + EEPROM.read(i)) / 2.0;
@@ -92,7 +95,7 @@ void ayar() {
         yilAyar();
       } while (u8g.nextPage());
       break;
-      case(6):
+    case (6):
       is_changed = 0;
       setting = false;
       break;
@@ -119,6 +122,7 @@ void pageChange() {
 
 void loop() {
   myRTC.updateTime();
+  Serial.println(myRTC.seconds);
   int chk = DHT.read(DHT11PIN);
   if (SaatTest(myRTC.minutes) && !writed) {
     addr = (addr + 1) % maxAddr;
@@ -136,7 +140,7 @@ void loop() {
     p = (p + 1) % pageCount;
     pageChange();
   }
-  if (digitalRead(btSet)|| digitalRead(btOk)) {
+  if (digitalRead(btSet) || digitalRead(btOk)) {
     lastMillisAyar = millis();
     nowMillisAyar = millis();
     while ((nowMillisAyar - lastMillisAyar) < 200) {
