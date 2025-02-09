@@ -1,19 +1,24 @@
 void sayfaHava() {
   u8g.setFont(u8g_font_fur11);
-  u8g.drawFrame(0, 0, 128, 64);
-  spacing = (128 - u8g.getStrPixelWidth("SICAKLIK: 23C")) / 2;
-  int chk = DHT.read(DHT11PIN);
+
+  DHT.read(DHT11PIN); // Gerekli, ancak chk değişkeni gereksiz
+  
+  byte sicaklik = DHT.temperature;
+  byte nem = DHT.humidity;
+
+  byte spacing = (128 - 90) / 2; // "SICAKLIK: XXC" yaklaşık 90 px genişlikte
   u8g.setPrintPos(spacing, 20);
   u8g.print("SICAKLIK: ");
-  u8g.print(DHT.temperature);
+  u8g.print(sicaklik);
   u8g.print("C");
-  spacing = (128 - u8g.getStrPixelWidth("24H ORT: 23.00C")) / 2;
+
+  spacing = (128 - 100) / 2; // "24H ORT: XX.XXC" yaklaşık 100 px genişlikte
   u8g.setPrintPos(spacing, 40);
   u8g.print("24H ORT: ");
-  u8g.print(ort_sck);
-  u8g.print("C");
-  spacing = (128 - u8g.getStrPixelWidth("NEM: %50")) / 2;
+  u8g.print(ort_sck, 1);  // Ondalık hassasiyetini 1 basamağa düşürdük
+
+  spacing = (128 - 80) / 2; // "NEM: %XX" yaklaşık 80 px genişlikte
   u8g.setPrintPos(spacing, 60);
   u8g.print("NEM: %");
-  u8g.print(DHT.humidity);
+  u8g.print(nem);
 }
